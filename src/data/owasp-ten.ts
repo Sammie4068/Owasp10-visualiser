@@ -85,32 +85,43 @@ interface ScaleProps {
 export const levels = [
   {
     title: "critical",
-    color: "#DB273C50",
     icon: critical,
     description: "High impact, immediate action required",
   },
   {
     title: "high",
-    color: "#FC365640",
     icon: high,
     description: "High impact, prompt action required",
   },
   {
     title: "medium",
-    color: "#FF530030",
     icon: medium,
     description: "Moderate impact, attention required",
   },
   {
     title: "low",
-    color: "#FFBD0020",
     icon: low,
     description: "Minimal impact, monitoring required",
   },
   {
     title: "information",
-    color: "#453A3D10",
     icon: information,
     description: "No impact, informational only",
   },
 ];
+
+export const severityColorVariants: any = {
+  critical: "bg-critical",
+  high: "bg-high",
+  medium: "bg-medium",
+  low: "bg-low",
+  information: "bg-imformation",
+};
+
+export const lightSeverityColorVariant: any = {
+  critical: "bg-critical-background",
+  high: "bg-high-background",
+  medium: "bg-medium-background",
+  low: "bg-low-background",
+  information: "bg-information-background",
+};

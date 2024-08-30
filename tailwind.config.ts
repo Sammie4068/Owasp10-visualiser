@@ -52,7 +52,7 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        critcal: {
+        critical: {
           DEFAULT: "hsl(var(--critical))",
           background: "hsl(var(--critical-background))",
         },

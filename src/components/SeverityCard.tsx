@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { levels } from "@/data/owasp-ten";
+import { levels, lightSeverityColorVariant } from "@/data/owasp-ten";
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -31,7 +31,10 @@ export default function SeverityCard() {
 
   const renderedScale = scaleData.map((item) => {
     return (
-      <Card key={item.title} className={`bg-${item.title}-background`}>
+      <Card
+        key={item.title}
+        className={`${lightSeverityColorVariant[item.title]}`}
+      >
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium capitalize">
             {item.title}
