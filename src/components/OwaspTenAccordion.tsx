@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import owaspTen from "@/db/owasp-ten";
+import {owaspTen} from "@/data/owasp-ten";
 
 export function OwaspTenAccordion() {
   const renderedList = owaspTen.map((item) => {

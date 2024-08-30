@@ -1,10 +1,16 @@
+import critical from "../../public/critical.svg";
+import high from "../../public/high.svg";
+import medium from "../../public/medium.svg";
+import low from "../../public/low.svg";
+import information from "../../public/information.svg";
+
 interface OwaspVulnerability {
   id: number;
   title: string;
   description: string;
 }
 
-const owaspTen: OwaspVulnerability[] = [
+export const owaspTen: OwaspVulnerability[] = [
   {
     id: 1,
     title: "Broken Access Control",
@@ -67,4 +73,55 @@ const owaspTen: OwaspVulnerability[] = [
   },
 ];
 
-export default owaspTen;
+interface ScaleProps {
+  title: string;
+  color: string;
+  icon: string;
+  description: string;
+  count?: number;
+}
+
+export function severityScale(): ScaleProps[] {
+  const levels = [
+    {
+      title: "critical",
+      color: "#DB273C50",
+      icon: critical,
+      description: "High impact, immediate action required",
+    },
+    {
+      title: "high",
+      color: "#FC365640",
+      icon: high,
+      description: "High impact, prompt action required",
+    },
+    {
+      title: "medium",
+      color: "#FF530030",
+      icon: medium,
+      description: "Moderate impact, attention required",
+    },
+    {
+      title: "low",
+      color: "#FFBD0020",
+      icon: low,
+      description: "Minimal impact, monitoring required",
+    },
+    {
+      title: "information",
+      color: "#453A3D10",
+      icon: information,
+      description: "No impact, informational only",
+    },
+  ];
+
+  const counts = localStorage.getItem("severityCount");
+
+  if (!counts) {
+    return levels;
+  }
+  return levels.map((item) => ({
+    ...item,
+    count: JSON.parse(counts)[item.title.toLowerCase()] || 0,
+  }));
+}
