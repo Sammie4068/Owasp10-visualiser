@@ -1,4 +1,4 @@
-type Vulnerability = {
+export type Vulnerability = {
   name: string;
   severityScore: number;
   severityLevel: string;

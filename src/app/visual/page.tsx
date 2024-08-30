@@ -12,22 +12,20 @@ export default function VisualizationPage() {
         <SeverityCard />
       </section>
       <section className="w-full flex justify-between">
-          <Tabs defaultValue="areachart" className="space-y-4 w-3/5 h-full">
-            <TabsList>
-              <TabsTrigger value="areachart">Area Chart</TabsTrigger>
-              <TabsTrigger value="barchart">Bar Chart</TabsTrigger>
-            </TabsList>
-            <TabsContent value="areachart">
-              <OwaspAreaChart />
-            </TabsContent>
-            <TabsContent value="barchart">
-              <OwaspBarChart />
-            </TabsContent>
-          </Tabs>
-          <RiskCard />
+        {/* <Tabs defaultValue="areachart" className="space-y-4 w-1/2 h-full">
+          <TabsList>
+            <TabsTrigger value="areachart">Area Chart</TabsTrigger>
+            <TabsTrigger value="barchart">Bar Chart</TabsTrigger>
+          </TabsList>
+          <TabsContent value="areachart">
+            <OwaspAreaChart />
+          </TabsContent>
+          <TabsContent value="barchart">
+            <OwaspBarChart />
+          </TabsContent>
+        </Tabs> */}
+        <RiskCard />
       </section>
-
-      {/* <section>Chart</section> */}
     </main>
   );
 }

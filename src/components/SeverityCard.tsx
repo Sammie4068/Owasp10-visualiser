@@ -8,14 +8,30 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { severityScale } from "@/data/owasp-ten";
+import { levels } from "@/data/owasp-ten";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function SeverityCard() {
-  const renderedScale = severityScale().map((item) => {
+  const [counts, setcounts] = useState<string | null>(null);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const value = localStorage.getItem("severityCount");
+      setcounts(value);
+    }
+  }, []);
+
+  const parsedCounts = counts ? JSON.parse(counts) : [];
+
+  const scaleData = levels.map((item) => ({
+    ...item,
+    count: parsedCounts[item.title.toLowerCase()],
+  }));
+
+  const renderedScale = scaleData.map((item) => {
     return (
-      <Card key={item.title} style={{ backgroundColor: `${item.color}` }}>
+      <Card key={item.title} className={`bg-${item.title}-background`}>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium capitalize">
             {item.title}
@@ -30,7 +46,7 @@ export default function SeverityCard() {
         </CardHeader>
         <CardContent className="flex flex-col gap-2">
           <div className="text-2xl font-bold">
-            {item.count ? item.count : 0 }
+            {item.count ? item.count : 0}
           </div>
           <p className="text-xs text-muted-foreground">{item.description}</p>
         </CardContent>

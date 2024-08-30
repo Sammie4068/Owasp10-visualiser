@@ -29,6 +29,16 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    --critical: 353 71% 51%;
+    --critical-background: 351 100% 86%;
+    --high: 350 97% 60%;
+    --high-background: 347 100% 89%;
+    --medium: 20 100% 50%;
+    --medium-background: 20 100% 90%;
+    --low: 44 100% 50%;
+    --low-background: 48 100% 93%;
+    --information: 344 9% 25%;
+    --information-background: 0 0% 95%;
   }
 
   .dark {

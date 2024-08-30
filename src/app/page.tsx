@@ -16,7 +16,7 @@ export default function Home() {
             Visualize your Codebase
           </div>
           <div className="text-lg text-gray-600 text-center max-w-xl">
-            Upload your code to receive an in-depth, visual analysis of the
+            Upload your MVP based code to receive an in-depth, visual analysis of the
             OWASP Top 10 vulnerabilities, along with tailored mitigation
             strategies.
           </div>

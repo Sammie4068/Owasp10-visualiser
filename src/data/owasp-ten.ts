@@ -81,47 +81,36 @@ interface ScaleProps {
   count?: number;
 }
 
-export function severityScale(): ScaleProps[] {
-  const levels = [
-    {
-      title: "critical",
-      color: "#DB273C50",
-      icon: critical,
-      description: "High impact, immediate action required",
-    },
-    {
-      title: "high",
-      color: "#FC365640",
-      icon: high,
-      description: "High impact, prompt action required",
-    },
-    {
-      title: "medium",
-      color: "#FF530030",
-      icon: medium,
-      description: "Moderate impact, attention required",
-    },
-    {
-      title: "low",
-      color: "#FFBD0020",
-      icon: low,
-      description: "Minimal impact, monitoring required",
-    },
-    {
-      title: "information",
-      color: "#453A3D10",
-      icon: information,
-      description: "No impact, informational only",
-    },
-  ];
-
-  const counts = localStorage.getItem("severityCount");
-
-  if (!counts) {
-    return levels;
-  }
-  return levels.map((item) => ({
-    ...item,
-    count: JSON.parse(counts)[item.title.toLowerCase()] || 0,
-  }));
-}
+// export function severityScale(): ScaleProps[] {
+export const levels = [
+  {
+    title: "critical",
+    color: "#DB273C50",
+    icon: critical,
+    description: "High impact, immediate action required",
+  },
+  {
+    title: "high",
+    color: "#FC365640",
+    icon: high,
+    description: "High impact, prompt action required",
+  },
+  {
+    title: "medium",
+    color: "#FF530030",
+    icon: medium,
+    description: "Moderate impact, attention required",
+  },
+  {
+    title: "low",
+    color: "#FFBD0020",
+    icon: low,
+    description: "Minimal impact, monitoring required",
+  },
+  {
+    title: "information",
+    color: "#453A3D10",
+    icon: information,
+    description: "No impact, informational only",
+  },
+];
