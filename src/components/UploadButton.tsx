@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "sonner";
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
@@ -18,15 +19,17 @@ const UploadButton = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && files.length > 0) {
-      setIsFileSelected(true);
-
-      // Simulate file processing time (same duration as animation)
-      setTimeout(() => {
-        router.push("/visual");
-      }, 10000);
-
-      severityAnalysis();
-      getSeverityNumbers();
+      if (files[0].type !== "application/zip") {
+        toast("Files must be a zip file");
+        setIsFileSelected(false);
+      } else {
+        setIsFileSelected(true);
+        severityAnalysis();
+        getSeverityNumbers();
+        setTimeout(() => {
+          router.push("/visual");
+        }, 10000);
+      }
     }
   };
 
