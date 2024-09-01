@@ -1,24 +1,14 @@
+import { owaspTen } from "./owasp-ten";
+
 export type Vulnerability = {
   name: string;
   severityScore: number;
   severityLevel: string;
+  url: string;
 };
 
 export function severityAnalysis(): Vulnerability[] {
-  const owasp2021Vulnerabilities = [
-    "Broken Access Control",
-    "Cryptographic Failures",
-    "Injection",
-    "Insecure Design",
-    "Security Misconfiguration",
-    "Vulnerable and Outdated Components",
-    "Identification and Authentication Failures",
-    "Software and Data Integrity Failures",
-    "Security Logging and Monitoring Failures",
-    "Server-Side Request Forgery (SSRF)",
-  ];
-
-  const data = owasp2021Vulnerabilities.map((item) => {
+  const data = owaspTen.map((item) => {
     const severityScore = parseFloat((Math.random() * 10).toFixed(1));
     let severityLevel = "";
 
@@ -35,9 +25,10 @@ export function severityAnalysis(): Vulnerability[] {
     }
 
     return {
-      name: item,
+      name: item.title,
       severityScore,
       severityLevel,
+      url: item.url,
     };
   });
 
