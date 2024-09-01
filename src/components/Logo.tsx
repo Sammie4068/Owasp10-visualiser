@@ -8,7 +8,7 @@ export default function Logo() {
         <Image
           src="/icon.png"
           width={150}
-          height={150}
+          height={10}
           alt="logo"
           priority={true}
         />
