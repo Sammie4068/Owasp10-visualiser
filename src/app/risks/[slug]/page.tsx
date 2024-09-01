@@ -11,7 +11,7 @@ export default function RiskPage({ params }: RiskPageProps) {
   const decodedSlug = decodeURIComponent(slug);
   return (
     <main className="container my-7">
-      <div className="flex items-center gap-5">
+      {/* <div className="flex items-center gap-5">
         <h1 className="text-4xl font-bold text-primary/80">
           Broken Access Control
         </h1>
@@ -94,7 +94,7 @@ export default function RiskPage({ params }: RiskPageProps) {
             </li>
           </ul>
         </article>
-      </div>
+      </div> */}
     </main>
   );
 }

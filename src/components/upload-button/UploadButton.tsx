@@ -3,7 +3,12 @@
 import { toast } from "sonner";
 import React, { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { severityAnalysis, getSeverityNumbers } from "@/data/analysis";
+import {
+  severityAnalysis,
+  getSeverityNumbers,
+  getAreaMvc,
+  getTotalMvc,
+} from "@/data/analysis";
 import styles from "./UploadButton.module.css";
 
 const UploadButton = () => {
@@ -19,17 +24,19 @@ const UploadButton = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && files.length > 0) {
-      if (files[0].type !== "application/zip") {
-        toast("Files must be a zip file");
-        setIsFileSelected(false);
-      } else {
-        setIsFileSelected(true);
-        severityAnalysis();
-        getSeverityNumbers();
-        setTimeout(() => {
-          router.push("/visual");
-        }, 10000);
-      }
+      // if (files[0].type !== "application/zip") {
+      //   toast("Files must be a zip file");
+      //   setIsFileSelected(false);
+      // } else {
+      setIsFileSelected(true);
+      severityAnalysis();
+      getSeverityNumbers();
+      // getTotalMvc();
+      // getAreaMvc();
+      setTimeout(() => {
+        router.push("/visual");
+      }, 10000);
+      // }
     }
   };
 
@@ -42,8 +49,8 @@ const UploadButton = () => {
         onClick={handleClick}
       >
         <svg xmlns="http://www.w3.org/2000/svg">
-          <rect className={styles.border} pathLength="100" />
-          <rect className={styles.loading} pathLength="100" />
+          <rect className={styles.border} pathLength="100" rx="1em" ry="1em" />
+          <rect className={styles.loading} pathLength="100" rx="1em" ry="1em" />
 
           <svg
             className={styles.doneSvg}

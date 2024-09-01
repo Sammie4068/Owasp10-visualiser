@@ -1,7 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import SeverityCard from "@/components/SeverityCard";
-import { OwaspBarChart } from "@/components/charts/OwaspBarChart";
 import { OwaspAreaChart } from "@/components/charts/OwaspAreaChart";
 import { OwaspPieChart } from "@/components/charts/OwaspPieChart";
 import RiskCard from "@/components/RiskCard";

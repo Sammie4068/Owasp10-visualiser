@@ -1,6 +1,6 @@
 "use client";
 
-import { Asterisk, TrendingUp } from "lucide-react";
+import { Asterisk } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
 import {
@@ -19,6 +19,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+
 const chartData = [
   { risk: "BAA", model: 0.78, view: 0.85, controller: 1.15 },
   { risk: "CF", model: 1.24, view: 1.12, controller: 0.96 },
@@ -48,6 +49,10 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function OwaspAreaChart() {
+  // const data = localStorage.getItem("chartData");
+  // if (!data) return;
+  // const chartData = JSON.parse(data);
+
   return (
     <Card className="">
       <CardHeader>
