@@ -1,5 +1,7 @@
 "use server";
 
+import { redirect } from "next/navigation";
+
 function isValidGitHubRepoLink(url: string) {
   const githubRepoPattern = /^https:\/\/github\.com\/[\w-]+\/[\w.-]+\.git$/;
   return githubRepoPattern.test(url);
@@ -29,6 +31,7 @@ export async function getAnalysisData(
   // Simulate a delay
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
+  redirect("/visual");
   // Return a response
   return { message: `Form submitted with GitHub repository: ${input}` };
 }

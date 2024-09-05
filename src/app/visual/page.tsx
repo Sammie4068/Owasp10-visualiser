@@ -4,14 +4,15 @@ import SeverityCard from "@/components/SeverityCard";
 import { OwaspAreaChart } from "@/components/charts/OwaspAreaChart";
 import { OwaspPieChart } from "@/components/charts/OwaspPieChart";
 import RiskCard from "@/components/RiskCard";
+import SemgrepSeverityCard from "@/components/SemgrepSeverityCard";
 
 export default function VisualizationPage() {
   return (
     <main className="container mx-auto p-4 space-y-5">
       <section className="flex items-center justify-between">
-        <SeverityCard />
+        <SemgrepSeverityCard />
       </section>
-      <section className="flex justify-between">
+      {/* <section className="flex justify-between">
         <Tabs defaultValue="areachart" className="space-y-4 w-1/2 h-full">
           <TabsList>
             <TabsTrigger value="areachart">Area Chart</TabsTrigger>
@@ -25,7 +26,7 @@ export default function VisualizationPage() {
           </TabsContent>
         </Tabs>
         <RiskCard />
-      </section>
+      </section> */}
     </main>
   );
 }
