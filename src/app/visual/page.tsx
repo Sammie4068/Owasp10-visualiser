@@ -32,7 +32,7 @@
 // }
 "use client";
 
-import { useState } from "react";
+import { Key, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -42,15 +42,18 @@ import {
   AlertOctagon,
   ShieldAlert,
   Ban,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
-import jsonData from "@/data/j2.json";
+import vulnerabilityData from "@/data/j2.json";
 import { OwaspAreaChart } from "@/components/charts/OwaspAreaChart";
 import { OwaspPieChart } from "@/components/charts/OwaspPieChart";
-
-const vulnerabilityData = jsonData;
+import { Badge } from "@/components/ui/badge";
 
 export default function VisualizationPage() {
   const [selectedVulnerability, setSelectedVulnerability] = useState<any>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 1;
 
   const severityCounts = vulnerabilityData.vulnerabilities.results.reduce(
     (acc, vuln) => {
@@ -85,6 +88,28 @@ export default function VisualizationPage() {
       <AlertTriangle className="text-[#F69C00]" size={30} strokeWidth={2.75} />
     ),
     LOW: <Ban className="text-[#1E2B53]" size={30} strokeWidth={2.75} />,
+  };
+
+  const groupedVulnerabilities =
+    vulnerabilityData.vulnerabilities.results.reduce((acc: any, vuln) => {
+      const owasp = vuln.extra.metadata.owasp[0];
+      if (!acc[owasp]) {
+        acc[owasp] = [];
+      }
+      acc[owasp].push(vuln);
+      return acc;
+    }, {});
+
+  const totalPages = selectedVulnerability
+    ? Math.ceil(selectedVulnerability.length / itemsPerPage)
+    : 0;
+
+  const handlePrevPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
 
   return (
@@ -139,31 +164,45 @@ export default function VisualizationPage() {
           </TabsContent>
         </Tabs>
         <div className="grid grid-cols-1 gap-4">
-          {vulnerabilityData.vulnerabilities.results.map((vuln, index) => {
-            const severity =
-              vuln.extra.severity === "ERROR"
-                ? "HIGH"
-                : vuln.extra.severity === "WARNING"
-                ? "MEDIUM"
-                : "LOW";
+          {Object.entries(groupedVulnerabilities).map(([owasp, vulns]: any) => {
+            const highestSeverity = vulns.reduce(
+              (acc: string, vuln: { extra: { severity: string } }) => {
+                const severity =
+                  vuln.extra.severity === "ERROR"
+                    ? "HIGH"
+                    : vuln.extra.severity === "WARNING"
+                    ? "MEDIUM"
+                    : "LOW";
+                return severity === "HIGH"
+                  ? "HIGH"
+                  : severity === "MEDIUM" && acc !== "HIGH"
+                  ? "MEDIUM"
+                  : acc;
+              },
+              "LOW"
+            );
+
             return (
-              <Card key={index} className="flex item-center">
+              <Card key={owasp} className="flex item-center">
                 <div className="flex flex-col">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      {severityIcons[severity]}
-                      <span className="truncate">
-                        {vuln.extra.metadata.owasp[0]}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        {severityIcons[highestSeverity]}
+                        <span className="truncate">{owasp}</span>
+                      </div>
+                      {vulns.length > 1 && (
+                        <Badge variant={"secondary"}>{vulns.length}</Badge>
+                      )}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="flex-grow">
                     <p className="mb-2 text-primary/90">
-                      {vuln.extra.metadata.cwe[0]}
+                      {vulns[0].extra.metadata.cwe[0]}
                     </p>
                     <Button
                       className="w-50 place-items-end"
-                      onClick={() => setSelectedVulnerability(vuln)}
+                      onClick={() => setSelectedVulnerability(vulns)}
                     >
                       View Details
                     </Button>
@@ -178,53 +217,70 @@ export default function VisualizationPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
           <Card className="w-full max-w-2xl max-h-[80vh] overflow-auto">
             <CardHeader>
-              <CardTitle>
-                {selectedVulnerability.extra.metadata.owasp[0]}
+              <CardTitle className="flex justify-between items-center">
+                <span>{selectedVulnerability[0].extra.metadata.owasp[0]}</span>
+                <span className="text-sm font-normal">
+                  {currentPage} of {totalPages}
+                </span>
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="mb-4">{selectedVulnerability.extra.message}</p>
-              <p className="mb-2">
-                <strong>Severity:</strong>{" "}
-                {selectedVulnerability.extra.severity === "ERROR"
-                  ? "HIGH"
-                  : selectedVulnerability.extra.severity === "WARNING"
-                  ? "MEDIUM"
-                  : "LOW"}
-              </p>
-              <p className="mb-2">
-                <strong>CWE:</strong>{" "}
-                {selectedVulnerability.extra.metadata.cwe.join(", ")}
-              </p>
-              <p className="mb-2">
-                <strong>Check ID:</strong> {selectedVulnerability.check_id}
-              </p>
-              <p className="mb-4">
-                <strong>Location:</strong> {selectedVulnerability.path}
-              </p>
-              <span className="mb-4 flex gap-2">
-                <strong>Mitigation:</strong>
-                <span className="flex flex-col gap-1">
-                  {selectedVulnerability.extra.metadata.references.map(
-                    (ref: any) => {
-                      return (
-                        <a
-                          href={ref}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="underline"
-                        >
-                          {ref}
-                        </a>
-                      );
-                    }
-                  )}
-                </span>
-              </span>
+              {selectedVulnerability
+                .slice(
+                  (currentPage - 1) * itemsPerPage,
+                  currentPage * itemsPerPage
+                )
+                .map((vuln: any, index: Key | null | undefined) => {
+                  return (
+                    <div
+                      key={index}
+                      className="mb-6 pb-6 border-b last:border-b-0"
+                    >
+                      <h2 className="text-lg font-bold text-primary/90 mb-2">
+                        Description
+                      </h2>
+                      <p className="mb-4">{vuln.extra.message}</p>
+                      <p className="mb-2">
+                        <strong>Severity:</strong>{" "}
+                        {vuln.extra.severity === "ERROR"
+                          ? "HIGH"
+                          : vuln.extra.severity === "WARNING"
+                          ? "MEDIUM"
+                          : "LOW"}
+                      </p>
+                      <p className="mb-2">
+                        <strong>CWE:</strong>{" "}
+                        {vuln.extra.metadata.cwe.join(", ")}
+                      </p>
+                      <p className="mb-2">
+                        <strong>Check ID:</strong> {vuln.check_id}
+                      </p>
+                      <p className="mb-2">
+                        <strong>Location path:</strong> {vuln.path}
+                      </p>
+                    </div>
+                  );
+                })}
             </CardContent>
-            <div className="p-4 pt-0">
-              <Button onClick={() => setSelectedVulnerability(null)}>
-                Close
+            <div className="p-4 pt-0 flex justify-between items-center">
+              <Button onClick={handlePrevPage} disabled={currentPage === 1}>
+                <ChevronLeft className="h-4 w-4 mr-2" /> Prev
+              </Button>
+              <Button
+                onClick={() => {
+                  setCurrentPage(1);
+                  setSelectedVulnerability(null);
+                }}
+                className="bg-green-800 hover:bg-green-800/90 w-1/2"
+              >
+                Done
+              </Button>
+              <Button
+                onClick={handleNextPage}
+                disabled={currentPage === totalPages}
+              >
+                Next
+                <ChevronRight className="h-4 w-4 ml-2" />
               </Button>
             </div>
           </Card>
