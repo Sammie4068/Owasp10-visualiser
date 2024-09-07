@@ -21,45 +21,40 @@ import {
 } from "@/components/ui/chart";
 
 const chartData = [
-  { risk: "BAA", model: 0.78, view: 0.85, controller: 1.15 },
-  { risk: "CF", model: 1.24, view: 1.12, controller: 0.96 },
-  { risk: "Inj", model: 0.92, view: 0.74, controller: 0.89 },
-  { risk: "ID", model: 0.34, view: 0.63, controller: 0.78 },
-  { risk: "SM", model: 0.67, view: 0.91, controller: 1.02 },
-  { risk: "VOC", model: 0.45, view: 0.68, controller: 0.85 },
-  { risk: "IAF", model: 0.89, view: 0.59, controller: 0.71 },
-  { risk: "SDIF", model: 0.29, view: 0.77, controller: 0.94 },
-  { risk: "SLMF", model: 0.86, view: 0.81, controller: 0.92 },
-  { risk: "SSRF", model: 0.56, view: 0.9, controller: 0.78 },
+  { category: "A01", High: 5, Medium: 3, Low: 2 },
+  { category: "A02", High: 2, Medium: 4, Low: 3 },
+  { category: "A03", High: 4, Medium: 2, Low: 1 },
+  { category: "A04", High: 3, Medium: 0, Low: 1 },
+  { category: "A05", High: 7, Medium: 4, Low: 2 },
+  { category: "A06", High: 4, Medium: 8, Low: 5 },
+  { category: "A07", High: 3, Medium: 9, Low: 1 },
+  { category: "A08", High: 5, Medium: 7, Low: 4 },
+  { category: "A09", High: 0, Medium: 1, Low: 2 },
+  { category: "A10", High: 0, Medium: 9, Low: 8 },
 ];
 
 const chartConfig = {
-  model: {
-    label: "Model",
+  High: {
+    label: "High",
     color: "hsl(var(--chart-1))",
   },
-  view: {
-    label: "View",
+  Medium: {
+    label: "Medium",
     color: "hsl(var(--chart-2))",
   },
-  controller: {
-    label: "Controller",
+  Low: {
+    label: "Low",
     color: "hsl(var(--chart-3))",
   },
 } satisfies ChartConfig;
 
 export function OwaspAreaChart() {
-  // const data = localStorage.getItem("chartData");
-  // if (!data) return;
-  // const chartData = JSON.parse(data);
-
   return (
     <Card className="">
       <CardHeader>
-        <CardTitle>MVC Vulnerability Area Chart</CardTitle>
+        <CardTitle>Vulnerability Severity Trend</CardTitle>
         <CardDescription>
-          Showing vulnerability score per Model, View and Controller
-          segmentations
+          Showing Vulnerability severity trends by Owasp top 10
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -74,7 +69,7 @@ export function OwaspAreaChart() {
           >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="risk"
+              dataKey="category"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
@@ -85,7 +80,7 @@ export function OwaspAreaChart() {
               content={<ChartTooltipContent indicator="dot" />}
             />
             <Area
-              dataKey="model"
+              dataKey="High"
               type="natural"
               fill="#C9001E"
               fillOpacity={0.7}
@@ -93,19 +88,19 @@ export function OwaspAreaChart() {
               stackId="a"
             />
             <Area
-              dataKey="view"
-              type="natural"
-              fill="#1E2B53"
-              fillOpacity={0.7}
-              stroke="#1E2B53"
-              stackId="a"
-            />
-            <Area
-              dataKey="controller"
+              dataKey="Medium"
               type="natural"
               fill="#F69C00"
               fillOpacity={0.7}
               stroke="#F69C00"
+              stackId="a"
+            />
+            <Area
+              dataKey="Low"
+              type="natural"
+              fill="#1E2B53"
+              fillOpacity={0.7}
+              stroke="#1E2B53"
               stackId="a"
             />
             <ChartLegend content={<ChartLegendContent />} />
@@ -116,8 +111,8 @@ export function OwaspAreaChart() {
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none">
-              Vulnerabilities are abbreviated
-              <Asterisk className="h-4 w-4" />
+              {/* Vulnerabilities are abbreviated */}
+              {/* <Asterisk className="h-4 w-4" /> */}
             </div>
             <div className="flex items-center gap-2 leading-none text-muted-foreground">
               {/* January - June 2024 */}

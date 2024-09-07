@@ -31,7 +31,7 @@ export async function getAnalysisData(
   // Simulate a delay
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  redirect("/visual");
   // Return a response
-  return { message: `Form submitted with GitHub repository: ${input}` };
+  // return { message: `Form submitted with GitHub repository: ${input}` };
+  redirect("/visual");
 }

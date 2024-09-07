@@ -18,25 +18,25 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 const chartData = [
-  { segment: "model", risks: 5, fill: "#C9001E" },
-  { segment: "view", risks: 7, fill: "#1E2B53" },
-  { segment: "controller", risks: 9, fill: "#F69C00" },
+  { segment: "High", count: 122, fill: "#C9001E" },
+  { segment: "Medium", count: 38, fill: "#F69C00" },
+  { segment: "Low", count: 1, fill: "#1E2B53" },
 ];
 
 const chartConfig = {
-  risks: {
+  count: {
     label: "Vulnerabilities",
   },
   model: {
-    label: "Model",
+    label: "High",
     color: "hsl(var(--chart-1))",
   },
   view: {
-    label: "View",
+    label: "Medium",
     color: "hsl(var(--chart-3))",
   },
   controller: {
-    label: "Controller",
+    label: "Low",
     color: "hsl(var(--chart-4))",
   },
 } satisfies ChartConfig;
@@ -45,10 +45,9 @@ export function OwaspPieChart() {
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>MVC Vulnerability Area Chart</CardTitle>
+        <CardTitle>Severity Chart</CardTitle>
         <CardDescription>
-          Showing the total vulnerabilities per Model, View and Controller
-          segmentations
+          Showing the total count of severity metrics
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
@@ -62,7 +61,7 @@ export function OwaspPieChart() {
             />
             <Pie
               data={chartData}
-              dataKey="risks"
+              dataKey="count"
               labelLine={false}
               label={({ payload, ...props }) => {
                 return (
@@ -75,7 +74,7 @@ export function OwaspPieChart() {
                     dominantBaseline={props.dominantBaseline}
                     fill="hsla(var(--foreground))"
                   >
-                    {`${payload.risks}`}
+                    {`${payload.count}`}
                   </text>
                 );
               }}

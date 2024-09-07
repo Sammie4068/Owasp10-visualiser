@@ -71,7 +71,10 @@ export default function Home() {
         {/* <div className="p-5">
           <UploadButton />
         </div> */}
-        <form onSubmit={handleSubmit} className="flex items-center gap-2">
+        <form
+          onSubmit={handleSubmit}
+          className="flex items-center justify-center gap-3"
+        >
           <div>
             <Input
               id="repo-url"
@@ -89,19 +92,19 @@ export default function Home() {
           <SubmitButton />
         </form>
         {clientError && (
-          <Alert variant="destructive" className="mt-2">
+          <Alert variant="destructive" className="mt-2 w-1/2">
             <AlertDescription>{clientError}</AlertDescription>
           </Alert>
         )}
         {state.error && (
-          <Alert variant="destructive" className="mt-2">
+          <Alert variant="destructive" className="mt-2 w-1/2">
             <AlertDescription>{state.error}</AlertDescription>
           </Alert>
         )}
         {state.message && (
           <Alert
             variant="default"
-            className="mt-2 bg-green-100 text-green-800 border-green-300"
+            className="mt-2 bg-green-100 text-green-800 border-green-300 w-1/2"
           >
             <AlertDescription>{state.message}</AlertDescription>
           </Alert>

@@ -201,7 +201,7 @@ export default function VisualizationPage() {
                       {vulns[0].extra.metadata.cwe[0]}
                     </p>
                     <Button
-                      className="w-50 place-items-end"
+                      className="w-50 place-items-end bg-[#93AFC9] hover:bg-[#93AFC990] "
                       onClick={() => setSelectedVulnerability(vulns)}
                     >
                       View Details
@@ -215,7 +215,7 @@ export default function VisualizationPage() {
       </div>
       {selectedVulnerability && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <Card className="w-full max-w-2xl max-h-[80vh] overflow-auto">
+          <Card className="w-full max-w-2xl h-[80vh] flex flex-col">
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
                 <span>{selectedVulnerability[0].extra.metadata.owasp[0]}</span>
@@ -224,7 +224,7 @@ export default function VisualizationPage() {
                 </span>
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex-grow overflow-y-auto scrollbar-hide">
               {selectedVulnerability
                 .slice(
                   (currentPage - 1) * itemsPerPage,
