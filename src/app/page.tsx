@@ -1,11 +1,9 @@
 "use client";
 
-// import UploadButton from "@/components/upload-button/UploadButton";
 import { OwaspTenAccordion } from "../components/OwaspTenAccordion";
 import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import { getAnalysisData, FormState } from "./actions";
-// import { useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -18,7 +16,11 @@ function isValidGitHubRepoLink(url: string) {
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" disabled={pending}>
+    <Button
+      type="submit"
+      disabled={pending}
+      className="bg-slate-500 hover:bg-slate-600"
+    >
       {pending ? "Scanning..." : "Scan"}
     </Button>
   );
@@ -56,25 +58,17 @@ export default function Home() {
         </h1>
         <OwaspTenAccordion />
       </div>
-      <div className="md:w-3/5 w-full h-screen flex flex-col items-center p-5 gap-10">
+      <div className="md:w-3/5 w-full md:h-screen flex flex-col p-5 gap-10">
         <div className="flex flex-col items-start gap-3 mt-20">
-          <div className="text-5xl font-extrabold text-gray-900 mb-4">
+          <div className="md:text-5xl text-4xl text-center font-extrabold text-gray-900 mb-4">
             Visualize your Codebase
           </div>
           <div className="text-lg text-gray-600 text-center max-w-xl">
             Provide the git link to the codebase to receive a comprehensive
-            visual analysis of potential OWASP Top 10 vulnerabilities, complete
-            with customized mitigation strategies to enhance application
-            security.
+            visual analysis of potential OWASP Top 10 vulnerabilities.
           </div>
         </div>
-        {/* <div className="p-5">
-          <UploadButton />
-        </div> */}
-        <form
-          onSubmit={handleSubmit}
-          className="flex items-center justify-center gap-3"
-        >
+        <form onSubmit={handleSubmit} className="flex justify-center gap-3">
           <div>
             <Input
               id="repo-url"

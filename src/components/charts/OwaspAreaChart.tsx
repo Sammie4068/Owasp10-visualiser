@@ -83,7 +83,7 @@ export function OwaspAreaChart() {
               dataKey="High"
               type="natural"
               fill="#C9001E"
-              fillOpacity={0.7}
+              fillOpacity={0.3}
               stroke="#C9001E"
               stackId="a"
             />
@@ -91,7 +91,7 @@ export function OwaspAreaChart() {
               dataKey="Medium"
               type="natural"
               fill="#F69C00"
-              fillOpacity={0.7}
+              fillOpacity={0.3}
               stroke="#F69C00"
               stackId="a"
             />
@@ -99,7 +99,7 @@ export function OwaspAreaChart() {
               dataKey="Low"
               type="natural"
               fill="#1E2B53"
-              fillOpacity={0.7}
+              fillOpacity={0.3}
               stroke="#1E2B53"
               stackId="a"
             />

@@ -1,35 +1,3 @@
-// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-// import SeverityCard from "@/components/SeverityCard";
-// import { OwaspAreaChart } from "@/components/charts/OwaspAreaChart";
-// import { OwaspPieChart } from "@/components/charts/OwaspPieChart";
-// import RiskCard from "@/components/RiskCard";
-// import SemgrepSeverityCard from "@/components/SemgrepSeverityCard";
-
-// export default function VisualizationPage() {
-//   return (
-//     <main className="container mx-auto p-4 space-y-5">
-//       <section className="flex items-center justify-between">
-//         <SemgrepSeverityCard />
-//       </section>
-//       {/* <section className="flex justify-between">
-//         <Tabs defaultValue="areachart" className="space-y-4 w-1/2 h-full">
-//           <TabsList>
-//             <TabsTrigger value="areachart">Area Chart</TabsTrigger>
-//             <TabsTrigger value="severitychart">Severity Chart</TabsTrigger>
-//           </TabsList>
-//           <TabsContent value="areachart">
-//             <OwaspAreaChart />
-//           </TabsContent>
-//           <TabsContent value="severitychart">
-//             <OwaspPieChart />
-//           </TabsContent>
-//         </Tabs>
-//         <RiskCard />
-//       </section> */}
-//     </main>
-//   );
-// }
 "use client";
 
 import { Key, useState } from "react";
@@ -115,7 +83,7 @@ export default function VisualizationPage() {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-28 md:mb-8">
         <Card className={"bg-[#93AFC9]  rounded-t-lg"}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-lg font-medium capitalize">
@@ -149,11 +117,8 @@ export default function VisualizationPage() {
         ))}
       </div>
 
-      <div className="flex gap-5 flex-col md:flex-row">
-        <Tabs
-          defaultValue="areachart"
-          className="space-y-4 md:w-1/2 w-full h-full"
-        >
+      <div className="grid md:grid-cols-9 lg:grid-cols-9 grid-cols-1 gap-3">
+        <Tabs defaultValue="areachart" className="space-y-4 col-span-5 h-full">
           <TabsList>
             <TabsTrigger value="areachart">Area Chart</TabsTrigger>
             <TabsTrigger value="severitychart">Severity Chart</TabsTrigger>
@@ -167,7 +132,7 @@ export default function VisualizationPage() {
             <OwaspPieChart />
           </TabsContent>
         </Tabs>
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid grid-cols-1 col-span-4 gap-4">
           {Object.entries(groupedVulnerabilities).length < 1 ? (
             <AllGood />
           ) : (
@@ -194,14 +159,20 @@ export default function VisualizationPage() {
                   <Card key={owasp} className="flex item-center">
                     <div className="flex flex-col">
                       <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                          <div className="flex items-center gap-2">
+                        <CardTitle className="grid grid-cols-12 gap-2">
+                          <span className="col-span-2">
                             {severityIcons[highestSeverity]}
-                            <span className="truncate">{owasp}</span>
-                          </div>
-                          {vulns.length > 1 && (
-                            <Badge variant={"secondary"}>{vulns.length}</Badge>
-                          )}
+                          </span>
+                          <span className="md:text-2xl text-xl col-span-10 md:col-span-8">
+                            {owasp}
+                          </span>
+                          {/* {vulns.length > 1 && ( */}
+                          <span className="col-span-2">
+                            <Badge className="text-sm" variant={"secondary"}>
+                              {vulns.length}
+                            </Badge>
+                          </span>
+                          {/* )} */}
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="flex-grow">
@@ -209,7 +180,7 @@ export default function VisualizationPage() {
                           {vulns[0].extra.metadata.cwe[0]}
                         </p>
                         <Button
-                          className="w-50 place-items-end bg-[#93AFC9] hover:bg-[#93AFC990] "
+                          className="w-50 bg-slate-500 hover:bg-slate-600 place-items-end"
                           onClick={() => setSelectedVulnerability(vulns)}
                         >
                           View Details
@@ -224,13 +195,14 @@ export default function VisualizationPage() {
         </div>
       </div>
       {selectedVulnerability && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <Card className="w-full max-w-2xl h-[80vh] flex flex-col">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center md:p-4">
+          <Card className="w-full max-w-2xl md:h-[80vh] h-screen flex flex-col">
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
                 <span>{selectedVulnerability[0].extra.metadata.owasp[0]}</span>
-                <span className="text-sm font-normal">
-                  {currentPage} of {totalPages}
+                <span className="text-sm font-normal text-nowrap">
+                  {selectedVulnerability.length > 1 &&
+                    `${currentPage} of ${totalPages}`}
                 </span>
               </CardTitle>
             </CardHeader>
@@ -246,10 +218,12 @@ export default function VisualizationPage() {
                       key={index}
                       className="mb-6 pb-6 border-b last:border-b-0"
                     >
-                      <h2 className="text-lg font-bold text-primary/90 mb-2">
+                      <h2 className="text-lg font-bold text-slate-500 mb-2">
                         Description
                       </h2>
-                      <p className="mb-4">{vuln.extra.message}</p>
+                      <p className="mb-4 text-white bg-slate-500 p-2">
+                        {vuln.extra.message}
+                      </p>
                       <p className="mb-2">
                         <strong>Severity:</strong>{" "}
                         {vuln.extra.severity === "ERROR"
@@ -265,16 +239,36 @@ export default function VisualizationPage() {
                       <p className="mb-2">
                         <strong>Check ID:</strong> {vuln.check_id}
                       </p>
-                      <p className="mb-2">
-                        <strong>Location path:</strong> {vuln.path}
-                      </p>
+                      <span className="mb-2">
+                        <h2 className="text-lg font-bold text-slate-500 mb-2">
+                          Location
+                        </h2>
+                        <p>
+                          {" "}
+                          <strong>path:</strong> {vuln.path}
+                        </p>
+                        <p>
+                          {" "}
+                          <strong>From:</strong> Column {vuln.start.col}, Line{" "}
+                          {vuln.start.line}
+                        </p>
+                        <p>
+                          {" "}
+                          <strong>To:</strong> Column {vuln.end.col}, Line{" "}
+                          {vuln.end.line}
+                        </p>
+                      </span>
                     </div>
                   );
                 })}
             </CardContent>
             <div className="p-4 pt-0 flex justify-between items-center">
               {selectedVulnerability.length > 1 && (
-                <Button onClick={handlePrevPage} disabled={currentPage === 1}>
+                <Button
+                  variant={"ghost"}
+                  onClick={handlePrevPage}
+                  disabled={currentPage === 1}
+                >
                   <ChevronLeft className="h-4 w-4 mr-2" /> Prev
                 </Button>
               )}
@@ -284,12 +278,13 @@ export default function VisualizationPage() {
                   setCurrentPage(1);
                   setSelectedVulnerability(null);
                 }}
-                className="w-1/2 mx-auto"
+                className="w-1/2 mx-auto bg-slate-500 hover:bg-slate-600"
               >
                 Done
               </Button>
               {selectedVulnerability.length > 1 && (
                 <Button
+                  variant={"ghost"}
                   onClick={handleNextPage}
                   disabled={currentPage === totalPages}
                 >
