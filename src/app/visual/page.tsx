@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   AlertTriangle,
-  AlertCircle,
   AlertOctagon,
   ShieldAlert,
   Ban,
@@ -257,6 +256,25 @@ export default function VisualizationPage() {
                           <strong>To:</strong> Column {vuln.end.col}, Line{" "}
                           {vuln.end.line}
                         </p>
+                      </span>
+                      <span className="mb-2">
+                        <h2 className="text-lg font-bold text-slate-500 mb-2 mt-4">
+                          Mitigation
+                        </h2>
+                        <div className="flex flex-col gap-1">
+                          {selectedVulnerability[0].extra.metadata.references.map(
+                            (ref: string) => (
+                              <a
+                                href={ref}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-800 hover:underline"
+                              >
+                                {ref}
+                              </a>
+                            )
+                          )}
+                        </div>
                       </span>
                     </div>
                   );
