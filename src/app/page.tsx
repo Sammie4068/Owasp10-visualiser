@@ -50,7 +50,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col md:flex-row">
-      <div className="md:w-2/5 w-full h-full bg-gradient-to-b from-[#93AFC9] to-cyan-500 px-5 py-2">
+      <div className="md:w-2/5 hidden md:block h-full bg-gradient-to-b from-[#93AFC9] to-cyan-500 px-5 py-2">
         <h1 className="text-center m-3 font-bold text-xl">
           Top 10 Web Application Security Risks
         </h1>
@@ -92,19 +92,19 @@ export default function Home() {
           <SubmitButton />
         </form>
         {clientError && (
-          <Alert variant="destructive" className="mt-2 w-1/2">
+          <Alert variant="destructive" className="mt-2 w-full md:w-1/2">
             <AlertDescription>{clientError}</AlertDescription>
           </Alert>
         )}
         {state.error && (
-          <Alert variant="destructive" className="mt-2 w-1/2">
+          <Alert variant="destructive" className="mt-2 w-full md:w-1/2">
             <AlertDescription>{state.error}</AlertDescription>
           </Alert>
         )}
         {state.message && (
           <Alert
             variant="default"
-            className="mt-2 bg-green-100 text-green-800 border-green-300 w-1/2"
+            className="mt-2 bg-green-100 text-green-800 border-green-300 w-full md:w-1/2"
           >
             <AlertDescription>{state.message}</AlertDescription>
           </Alert>
