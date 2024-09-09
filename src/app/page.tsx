@@ -52,7 +52,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col md:flex-row">
-      <div className="md:w-2/5 hidden md:block bg-gradient-to-b from-[#93AFC9] to-cyan-500 px-5 py-2">
+      <div className="md:w-2/5 hidden md:block bg-gradient-to-b from-slate-500 to-slate-300 px-5 py-2">
         <h1 className="text-center m-3 font-bold text-xl">
           Top 10 Web Application Security Risks
         </h1>

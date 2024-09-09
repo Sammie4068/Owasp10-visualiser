@@ -43,9 +43,9 @@ export default function VisualizationPage() {
     [key: string]: string | React.ReactNode;
   }
   const severityColors: severityType = {
-    HIGH: "bg-[#C9001E30] text-[#C9001E]",
-    MEDIUM: "bg-[#F69C0030] text-[#F69C00]",
-    LOW: "bg-[#1E2B5330] text-[#1E2B53]",
+    HIGH: "bg-[#F7C3C7] text-[#C9001E]",
+    MEDIUM: "bg-[#FEE6C3] text-[#F69C00]",
+    LOW: "bg-[#D0D6E7] text-[#1E2B53]",
   };
 
   const severityIcons: severityType = {
@@ -118,7 +118,7 @@ export default function VisualizationPage() {
 
       <div className="grid md:grid-cols-9 lg:grid-cols-9 grid-cols-1 gap-3">
         <Tabs defaultValue="areachart" className="space-y-4 col-span-5 h-full">
-          <TabsList>
+          <TabsList className="border border-slate-800">
             <TabsTrigger value="areachart">Area Chart</TabsTrigger>
             <TabsTrigger value="severitychart">Severity Chart</TabsTrigger>
           </TabsList>
@@ -195,7 +195,7 @@ export default function VisualizationPage() {
       </div>
       {selectedVulnerability && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center md:p-4">
-          <Card className="w-full max-w-2xl md:h-[80vh] h-screen flex flex-col">
+          <Card className="w-full max-w-2xl md:h-[80vh] h-screen flex flex-col bg-slate-100">
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
                 <span>{selectedVulnerability[0].extra.metadata.owasp[0]}</span>
@@ -296,7 +296,7 @@ export default function VisualizationPage() {
                   setCurrentPage(1);
                   setSelectedVulnerability(null);
                 }}
-                className="w-1/2 mx-auto bg-slate-500 hover:bg-slate-600"
+                className="w-1/3 mx-auto bg-slate-500 hover:bg-slate-600"
               >
                 Done
               </Button>
