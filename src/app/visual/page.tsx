@@ -269,6 +269,7 @@ export default function VisualizationPage() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-gray-800 hover:underline"
+                                key={ref}
                               >
                                 {ref}
                               </a>
